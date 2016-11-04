@@ -1,4 +1,4 @@
-Yii2 file manager
+Yii2 file manager (fedman master)
 ================
 This module provide interface to collect and access all mediafiles in one place. Inspired by WordPress file manager.
 
