@@ -253,7 +253,7 @@ class Mediafile extends ActiveRecord
         try {
             if ($this->save()) {
                 if ($this->isImage()) {
-                    $this->createThumbs($routes, $this->module->thumbs);
+                    $this->createThumbs($routes, \Yii::$app->controller->module->thumbs);
                 }
             }
             //.... other SQL executions
