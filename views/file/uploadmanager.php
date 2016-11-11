@@ -17,6 +17,8 @@ use yii\helpers\Html;
         'attribute' => 'file',
         'clientOptions' => [
             'autoUpload'=> Yii::$app->getModule('filemanager')->autoUpload,
+            'loadImageMaxFileSize'=> 2000000,
+//            'loadImageFileTypes'=> 'gif',
         ],
         'clientEvents' => [
             'fileuploadsubmit' => "function (e, data) { data.formData = [{name: 'tagIds', value: $('#filemanager-tagIds').val()}]; }",

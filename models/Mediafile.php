@@ -248,8 +248,24 @@ class Mediafile extends ActiveRecord
         $this->type = $this->file->type;
         $this->size = $this->file->size;
         $this->url = $url;
+        $connection = \Yii::$app->db;
+        $transaction = $connection->beginTransaction();
+        try {
+            if ($this->save()) {
+                if ($this->isImage()) {
+                    $this->createThumbs($routes, $this->module->thumbs);
+                }
+            }
+            //.... other SQL executions
+            $transaction->commit();
+            return TRUE;
+        } catch (\Exception $e) {
+//            echo "$absolutePath/$filename";
+            $transaction->rollBack();
+            @unlink("$absolutePath/$filename");
+        }
 
-        return $this->save();
+        return FALSE;
     }
 
     /**
@@ -548,7 +564,7 @@ class Mediafile extends ActiveRecord
     public function getOriginalImageSizes(array $routes)
     {
         $basePath = Yii::getAlias($routes['basePath']);
-        return getimagesize("$basePath/{$this->url}");
+        return @getimagesize("$basePath/{$this->url}");
     }
 
     /**

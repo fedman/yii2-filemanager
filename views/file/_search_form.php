@@ -8,7 +8,7 @@ use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 ?>
-<?php $form = ActiveForm::begin(['action' => '?', 'method' => 'get']) ?>
+<?php $form = ActiveForm::begin(['action' => \yii\helpers\Url::toRoute('/filemanager/file/filemanager'), 'method' => 'get']) ?>
 	<?= $form->field($model, 'tagIds')->widget(\kartik\select2\Select2::className(), [
 		'maintainOrder' => true,
 		'data' => ArrayHelper::map(Tag::find()->all(), 'id', 'name'),
